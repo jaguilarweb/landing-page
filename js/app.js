@@ -35,25 +35,22 @@ const listSections = document.querySelectorAll('section');
 */
 
 // build the nav
-// https://developer.mozilla.org/es/docs/Web/API/Document/createElement (reference)
 
-document.body.onload = addElement;
-
-function addElement () {
-  //TEST: Delete
-  console.log(listSections)
-
+document.addEventListener('DOMContentLoaded', function () {
   for (let i = 0; i < listSections.length; i++){
-        // Create element
-        const newLi = document.createElement('li');
-        newLi.textContent = 'Section';
-        newLi.style.cssText = 'color: white; background-color: grey; font-size: 3.5em; border:black solid 2px';
-    
-        // Add new element into DOM
-        const navElement = document.querySelector('#navbar__list');
-        navElement.appendChild(newLi);
+    // Create element
+    const newLi = document.createElement('li');
+    const dataSection = listSections[i].getAttribute('data-nav');
+    newLi.textContent = dataSection;
+    newLi.style.cssText = 'color: white; background-color: grey; font-size: 3.5em; border:black solid 2px';
+
+    // Add new element into DOM
+    const navElement = document.querySelector('#navbar__list');
+    navElement.appendChild(newLi);
   };
-};
+});
+
+
 
 
 // Add class 'active' to section when near top of viewport
