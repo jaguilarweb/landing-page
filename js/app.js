@@ -20,6 +20,8 @@
 // Used in addElement()
 const listSections = document.querySelectorAll('section');
 
+const navElement = document.querySelector('#navbar__list');
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -38,14 +40,18 @@ const listSections = document.querySelectorAll('section');
 
 document.addEventListener('DOMContentLoaded', function () {
   for (let i = 0; i < listSections.length; i++){
-    // Create element
+    // Create elements
     const newLi = document.createElement('li');
+    const newAnchor = document.createElement('a');
+    //Create and add ID to the anchors
     const dataSection = listSections[i].getAttribute('data-nav');
-    newLi.textContent = dataSection;
+    const navSectionId = `nav-${listSections[i].getAttribute('id')}`
+    newAnchor.setAttribute('id', navSectionId);
+    newAnchor.textContent = dataSection;
+    newLi.appendChild(newAnchor);
+    // Change style
     newLi.style.cssText = 'color: white; background-color: grey; font-size: 3.5em; border:black solid 2px';
-
-    // Add new element into DOM
-    const navElement = document.querySelector('#navbar__list');
+    // Add new element into DOM    
     navElement.appendChild(newLi);
   };
 });
@@ -55,8 +61,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Add class 'active' to section when near top of viewport
 
+//con el scroll identificamos donde estamos y le agregamos la clase activa.
+// function addActiveClass (elementSelected) {
+  
+// }
+
 
 // Scroll to anchor ID using scrollTO event
+
+// Event on the parent nav__list
+navElement.addEventListener('click', function (event) {
+    //Prevent default event
+    event.preventDefault();
+    //Get id name from the event (element clicked)
+    const anchorId = event.target.id;
+    //Section id name is a substring of the anchor id name
+    const sectionId = anchorId.substr(4, anchorId.length);
+    //Scroll to sections    
+    const selectSection = document.getElementById(sectionId);
+
+    selectSection.scrollIntoView({block: "start", behavior: "smooth"});
+
+});
+
+
 
 
 /**
