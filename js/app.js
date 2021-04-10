@@ -18,7 +18,9 @@
  * 
 */
 // Used in addElement()
-const listSections = document.querySelectorAll('section');
+let nodeListSections = {};
+let arrayListSections = [];
+let arraylistAnchor = [];
 
 const navElement = document.querySelector('#navbar__list');
 
@@ -39,50 +41,79 @@ const navElement = document.querySelector('#navbar__list');
 // build the nav
 
 document.addEventListener('DOMContentLoaded', function () {
-  for (let i = 0; i < listSections.length; i++){
+
+  nodeListSections = document.getElementsByTagName('section');
+  arrayListSections = [...nodeListSections];
+
+  for (let i = 0; i < nodeListSections.length; i++){
     // Create elements
     const newLi = document.createElement('li');
     const newAnchor = document.createElement('a');
     //Create and add ID to the anchors
-    const dataSection = listSections[i].getAttribute('data-nav');
-    const navSectionId = `nav-${listSections[i].getAttribute('id')}`
+    const dataSection = nodeListSections[i].getAttribute('data-nav');
+    const navSectionId = `nav-${nodeListSections[i].getAttribute('id')}`
     newAnchor.setAttribute('id', navSectionId);
     newAnchor.textContent = dataSection;
+    arraylistAnchor.push(newAnchor);
     newLi.appendChild(newAnchor);
     // Change style
-    newLi.style.cssText = 'color: white; background-color: grey; font-size: 3.5em; border:black solid 2px';
+    newLi.style.cssText = 'color: white; background-color: grey; font-size: 2.5em; border:black solid 2px';
     // Add new element into DOM    
     navElement.appendChild(newLi);
   };
+
 });
-
-
 
 
 // Add class 'active' to section when near top of viewport
 
-//con el scroll identificamos donde estamos y le agregamos la clase activa.
-// function addActiveClass (elementSelected) {
-  
-// }
+const addAnchorActiveClass = (anchorId) => {
+  arraylistAnchor.forEach((anchorSelected)=>{
+    if(anchorSelected.id === anchorId){
+      anchorSelected.parentElement.style.cssText = 'color: white; background-color: red; font-size: 2.5em; border:black solid 2px';
+    }else{
+      anchorSelected.parentElement.style.cssText = 'color: white; background-color: grey; font-size: 2.5em; border:black solid 2px';
+    }
+  });
+}
 
 
-// Scroll to anchor ID using scrollTO event
+const addSectionActiveClass = (selectSection) => {
 
-// Event on the parent nav__list
-navElement.addEventListener('click', function (event) {
-    //Prevent default event
+  arrayListSections.forEach((section) => {    
+
+    if(section.id === selectSection.id){
+      section.setAttribute('class', 'your-active-class');
+      let anchorId = `nav-${selectSection.id}`
+      addAnchorActiveClass(anchorId);
+    }else{
+      section.setAttribute('class', '');
+    }
+
+  });
+}
+
+
+const navSection = (event) => {
+  if(event.target.nodeName === 'A'){
     event.preventDefault();
     //Get id name from the event (element clicked)
     const anchorId = event.target.id;
     //Section id name is a substring of the anchor id name
     const sectionId = anchorId.substr(4, anchorId.length);
-    //Scroll to sections    
+
     const selectSection = document.getElementById(sectionId);
-
+    addSectionActiveClass(selectSection);
+    //Scroll to sections
     selectSection.scrollIntoView({block: "start", behavior: "smooth"});
+  }
+}  
 
-});
+// Scroll to anchor ID using scrollTO event
+// Event on the parent nav__list
+navElement.addEventListener('click', navSection);
+
+
 
 
 
