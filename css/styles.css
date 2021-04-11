@@ -28,8 +28,10 @@ h1 {
 li {
     color: white;
     background-color: grey;
-    font-size: 2.5em;
-    border:black solid 2px;
+    width: 150px;
+    font-size: 1.5em;
+    text-align: center;
+    border:black solid 1px;
 }
 
 .main-btn {
@@ -235,8 +237,8 @@ section.your-active-class .landing__container::after {
 li.your-active-class{
     color: white;
     background-color: red;
-    font-size: 2.5em;
-    border:black solid 2px;
+    font-size: 1.5em;
+    border:black solid 1px;
 }
 
 /* Section Active Styles Keyframe Animations */

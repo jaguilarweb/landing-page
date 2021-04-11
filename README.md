@@ -3,6 +3,8 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
+* [Abour](#about)
+* [Authors](#authors)
 
 ## Instructions
 
