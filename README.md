@@ -6,8 +6,18 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This project is a FEND program powered by Udacity and requires you to utilize JavaScript skills to convert this project from a static project to an interactive one.
 
-To get started, open `js/app.js` and start building out the app's functionality
+The starter project had some HTML and CSS styling to display a static version of the Landing Page project.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+The all app's functionality are in `js/app.js`
+
+## About
+This is a personal development to the project subject to review.
+
+- Code reference: The W3School site (https://www.w3schools.com/) and MDN web Docs were consulted during project development.
+
+- Disclaimer: This is a proposal or test project and your use of the code is under your own accountability.
+
+## Authors
+These application and documentation were created by Jenny Aguilar.
