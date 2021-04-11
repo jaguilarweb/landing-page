@@ -26,6 +26,31 @@ h1 {
     margin: 2em 1rem;
 }
 
+li {
+    color: white; 
+    background-color: grey; 
+    font-size: 2.5em; 
+    border:black solid 2px;
+}
+
+.main-btn {
+    position: fixed;
+    right: 15px;
+    bottom: 30px;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.50);
+    color: white;
+    border:white solid 3px;
+    border-radius: 100%;
+    font-size: 20px;
+    outline: none;
+    z-index: 1;
+    cursor: pointer;
+    display: none;
+}
+
 @media only screen and (min-width: 35em){
     h1 {
         font-size: 7em;
@@ -206,6 +231,13 @@ section.your-active-class .landing__container::before {
 section.your-active-class .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
+}
+
+li.your-active-class{
+    color: white; 
+    background-color: red; 
+    font-size: 2.5em; 
+    border:black solid 2px;
 }
 
 /* Section Active Styles Keyframe Animations */

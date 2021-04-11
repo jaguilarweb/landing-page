@@ -21,7 +21,7 @@
 let nodeListSections = {};
 let arrayListSections = [];
 let arraylistAnchor = [];
-
+const buttonToTop = document.getElementById('main-button');
 const navElement = document.querySelector('#navbar__list');
 
 /**
@@ -42,81 +42,91 @@ const navElement = document.querySelector('#navbar__list');
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  nodeListSections = document.getElementsByTagName('section');
-  arrayListSections = [...nodeListSections];
+    nodeListSections = document.getElementsByTagName('section');
+    arrayListSections = [...nodeListSections];
+    let listNewLi = [];
+    
 
-  for (let i = 0; i < nodeListSections.length; i++){
-    // Create elements
-    const newLi = document.createElement('li');
-    const newAnchor = document.createElement('a');
-    //Create and add ID to the anchors
-    const dataSection = nodeListSections[i].getAttribute('data-nav');
-    const navSectionId = `nav-${nodeListSections[i].getAttribute('id')}`
-    newAnchor.setAttribute('id', navSectionId);
-    newAnchor.textContent = dataSection;
-    arraylistAnchor.push(newAnchor);
-    newLi.appendChild(newAnchor);
-    // Change style
-    newLi.style.cssText = 'color: white; background-color: grey; font-size: 2.5em; border:black solid 2px';
-    // Add new element into DOM    
-    navElement.appendChild(newLi);
-  };
+    arrayListSections.forEach((section) => {
+        // Create elements
+        const newLi = document.createElement('li');
+        const newAnchor = document.createElement('a');
 
+        //Create ID to the anchors
+        const dataSection = section.getAttribute('data-nav');
+        const navSectionId = `nav-${section.getAttribute('id')}`
+        //Add anchors to list item
+        newAnchor.setAttribute('id', navSectionId);
+        newAnchor.textContent = dataSection;
+        newLi.appendChild(newAnchor);
+        // Add to arrays lists
+        arraylistAnchor.push(newAnchor);
+        listNewLi.push(newLi);
+    });
+
+    // Add new element into DOM
+    navElement.append(...listNewLi);
 });
 
 
 // Add class 'active' to section when near top of viewport
 
 const addAnchorActiveClass = (anchorId) => {
-  arraylistAnchor.forEach((anchorSelected)=>{
-    if(anchorSelected.id === anchorId){
-      anchorSelected.parentElement.style.cssText = 'color: white; background-color: red; font-size: 2.5em; border:black solid 2px';
-    }else{
-      anchorSelected.parentElement.style.cssText = 'color: white; background-color: grey; font-size: 2.5em; border:black solid 2px';
-    }
-  });
+    arraylistAnchor.forEach((anchorSelected)=>{
+      if( anchorSelected.id === anchorId){
+        anchorSelected.parentElement.setAttribute('class', 'your-active-class');
+      }else{
+        anchorSelected.parentElement.setAttribute('class', '');
+      }
+    });
 }
 
-
-const addSectionActiveClass = (selectSection) => {
-
-  arrayListSections.forEach((section) => {    
-
-    if(section.id === selectSection.id){
-      section.setAttribute('class', 'your-active-class');
-      let anchorId = `nav-${selectSection.id}`
-      addAnchorActiveClass(anchorId);
-    }else{
-      section.setAttribute('class', '');
-    }
-
-  });
+const addSectionActiveClass = (IdSection) => {
+    arrayListSections.forEach((section) => {
+        if(section.id === IdSection){
+          section.setAttribute('class', 'your-active-class');
+          let anchorId = `nav-${IdSection}`;
+          addAnchorActiveClass(anchorId);
+        }else{
+          section.setAttribute('class', '');
+        }
+    });
 }
-
 
 const navSection = (event) => {
-  if(event.target.nodeName === 'A'){
-    event.preventDefault();
-    //Get id name from the event (element clicked)
-    const anchorId = event.target.id;
-    //Section id name is a substring of the anchor id name
-    const sectionId = anchorId.substr(4, anchorId.length);
+    if(event.target.nodeName === 'A'){
+        event.preventDefault();
+        //From the event get element id clicked
+        const anchorId = event.target.id;
+        //Section id is a substring of the anchor id
+        const sectionId = anchorId.substr(4, anchorId.length);
+        const selectSection = document.getElementById(sectionId);
+        addSectionActiveClass(sectionId);
+        //Scroll to sections
+        selectSection.scrollIntoView({block: "start", behavior: "smooth"});
+    }
+}
 
-    const selectSection = document.getElementById(sectionId);
-    addSectionActiveClass(selectSection);
-    //Scroll to sections
-    selectSection.scrollIntoView({block: "start", behavior: "smooth"});
-  }
-}  
 
-// Scroll to anchor ID using scrollTO event
-// Event on the parent nav__list
+const buttonShow = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+
+    if(Math.ceil(scrolled) >= Math.ceil(scrollable*0.5)){
+      buttonToTop.style.display = 'block';
+    }else{
+      buttonToTop.style.display = 'none';
+    }
+};
+
+// Events
 navElement.addEventListener('click', navSection);
 
+window.addEventListener('scroll', buttonShow);
 
-
-
-
+buttonToTop.addEventListener('click', function(){
+  window.scroll({top: 100, left: 100, behavior: 'smooth'});
+});
 
 /**
  * End Main Functions
