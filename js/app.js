@@ -17,7 +17,7 @@
  * Define Global Variables
  * 
 */
-// Used in addElement()
+
 let nodeListSections = {};
 let arrayListSections = [];
 let arraylistAnchor = [];
@@ -39,9 +39,7 @@ const navElement = document.querySelector('#navbar__list');
 */
 
 // build the nav
-
 document.addEventListener('DOMContentLoaded', function () {
-
     nodeListSections = document.getElementsByTagName('section');
     arrayListSections = [...nodeListSections];
     let listNewLi = [];
@@ -65,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add new element into DOM
     navElement.append(...listNewLi);
 });
-
-
 
 const addAnchorActiveClass = (anchorId) => {
     arraylistAnchor.forEach( (anchorSelected) => {
@@ -100,7 +96,7 @@ const navSection = (event) => {
         const selectSection = document.getElementById(sectionId);
         addSectionActiveClass(sectionId);
         //Scroll to sections
-        selectSection.scrollIntoView({block: "start", behavior: "smooth"});
+        selectSection.scrollIntoView({block: "start"});
     }
 };
 
@@ -112,7 +108,7 @@ function isInViewport (elem) {
       bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
       bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-};
+}
 
 const buttonShow = () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
