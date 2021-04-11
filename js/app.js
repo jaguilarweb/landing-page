@@ -45,8 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
     nodeListSections = document.getElementsByTagName('section');
     arrayListSections = [...nodeListSections];
     let listNewLi = [];
-    
-
     arrayListSections.forEach((section) => {
         // Create elements
         const newLi = document.createElement('li');
@@ -54,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //Create ID to the anchors
         const dataSection = section.getAttribute('data-nav');
-        const navSectionId = `nav-${section.getAttribute('id')}`
+        const navSectionId = `nav-${section.getAttribute('id')}`;
         //Add anchors to list item
         newAnchor.setAttribute('id', navSectionId);
         newAnchor.textContent = dataSection;
@@ -69,32 +67,31 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// Add class 'active' to section when near top of viewport
 
 const addAnchorActiveClass = (anchorId) => {
-    arraylistAnchor.forEach((anchorSelected)=>{
-      if( anchorSelected.id === anchorId){
-        anchorSelected.parentElement.setAttribute('class', 'your-active-class');
-      }else{
-        anchorSelected.parentElement.setAttribute('class', '');
-      }
+    arraylistAnchor.forEach( (anchorSelected) => {
+        if (anchorSelected.id === anchorId){
+          anchorSelected.parentElement.setAttribute('class', 'your-active-class');
+        } else {
+          anchorSelected.parentElement.setAttribute('class', '');
+        }
     });
-}
+};
 
 const addSectionActiveClass = (IdSection) => {
-    arrayListSections.forEach((section) => {
-        if(section.id === IdSection){
+    arrayListSections.forEach( (section) => {
+        if (section.id === IdSection){
           section.setAttribute('class', 'your-active-class');
           let anchorId = `nav-${IdSection}`;
           addAnchorActiveClass(anchorId);
-        }else{
+        } else {
           section.setAttribute('class', '');
         }
     });
-}
+};
 
 const navSection = (event) => {
-    if(event.target.nodeName === 'A'){
+    if (event.target.nodeName === 'A'){
         event.preventDefault();
         //From the event get element id clicked
         const anchorId = event.target.id;
@@ -105,24 +102,43 @@ const navSection = (event) => {
         //Scroll to sections
         selectSection.scrollIntoView({block: "start", behavior: "smooth"});
     }
-}
+};
 
+function isInViewport (elem) {
+    let bounding = elem.getBoundingClientRect();
+    return (
+      bounding.top >= 0 &&
+      bounding.left >= 0 &&
+      bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+};
 
 const buttonShow = () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
-
-    if(Math.ceil(scrolled) >= Math.ceil(scrollable*0.5)){
-      buttonToTop.style.display = 'block';
-    }else{
-      buttonToTop.style.display = 'none';
+    if (Math.ceil(scrolled) >= Math.ceil(scrollable * 0.5)){
+        buttonToTop.style.display = 'block';
+    } else {
+        buttonToTop.style.display = 'none';
     }
+};
+
+// Add class 'active' to section when near top of viewport
+const checkScroll = () => {
+    // Check if sections are in viewport
+    arrayListSections.forEach( (section) => {
+        if (isInViewport(section)){
+            addSectionActiveClass(section.id);
+        }
+    });
+    buttonShow();
 };
 
 // Events
 navElement.addEventListener('click', navSection);
 
-window.addEventListener('scroll', buttonShow);
+window.addEventListener('scroll', checkScroll);
 
 buttonToTop.addEventListener('click', function(){
   window.scroll({top: 100, left: 100, behavior: 'smooth'});
@@ -139,5 +155,3 @@ buttonToTop.addEventListener('click', function(){
 // Scroll to section on link click
 
 // Set sections as active
-
-
