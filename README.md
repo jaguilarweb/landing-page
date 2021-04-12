@@ -3,16 +3,18 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Abour](#about)
+* [About](#about)
 * [Authors](#authors)
 
 ## Instructions
 
 This project is a FEND program powered by Udacity and requires you to utilize JavaScript skills to convert this project from a static project to an interactive one.
 
+### Technologies
+
 The starter project had some HTML and CSS styling to display a static version of the Landing Page project.
 
-The all app's functionality are in `js/app.js`
+The all app's functionality are in `js/app.js` (JavaScript programming language).
 
 ## About
 This is a personal development to the project subject to review.
