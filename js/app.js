@@ -95,8 +95,8 @@ const navSection = (event) => {
         const sectionId = anchorId.substr(4, anchorId.length);
         const selectSection = document.getElementById(sectionId);
         addSectionActiveClass(sectionId);
-        //Scroll to sections
-        selectSection.scrollIntoView({block: "start"});
+        //Scroll to sections smooth
+        selectSection.scrollIntoView({block: "start", behavior: 'smooth'});
     }
 };
 
